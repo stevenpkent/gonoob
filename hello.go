@@ -23,6 +23,14 @@ func main() {
 	newMessage("Steven", "hi")
 	newMessage("Steven", "bye")
 	outputMessages()
+
+	deleteMessageBySender("Steven")
+	outputMessages()
+
+	newMessage("Steven", "hi")
+	newMessage("Steven", "hi")
+	deleteMessageByMessageText("hi")
+	outputMessages()
 }
 
 func slice() {
@@ -84,8 +92,36 @@ func addMessage(msg Message) {
 	messages = append(messages, msg)
 }
 
+func deleteMessageBySender(sender string) {
+	tempMessages := make([]Message, 0)
+
+	for _, msg := range messages {
+		if msg.sender != sender {
+			tempMessages = append(tempMessages, msg)
+		}
+	}
+
+	messages = tempMessages
+}
+
+func deleteMessageByMessageText(messageText string) {
+	tempMessages := make([]Message, 0)
+
+	for _, msg := range messages {
+		if msg.text != messageText {
+			tempMessages = append(tempMessages, msg)
+		}
+	}
+
+	messages = tempMessages
+}
+
 func outputMessages() {
-	for _, m := range messages {
-		fmt.Println(m.toString())
+	if len(messages) == 0 {
+		fmt.Println("There are no messages")
+	} else {
+		for _, m := range messages {
+			fmt.Println(m.toString())
+		}
 	}
 }
