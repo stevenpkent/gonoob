@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"errors"
+)
 
 var messages []Message
 
@@ -20,17 +23,75 @@ func main() {
 	// avg := averageSpeedToMars(daysTravelled)
 	// fmt.Println("Average speed is " + fmt.Sprintf("%.2f", avg))
 
-	newMessage("Steven", "hi")
-	newMessage("Steven", "bye")
-	outputMessages()
+	// newMessage("Steven", "hi")
+	// newMessage("Steven", "bye")
+	// outputMessages()
 
-	deleteMessageBySender("Steven")
-	outputMessages()
+	// deleteMessageBySender("Steven")
+	// outputMessages()
 
-	newMessage("Steven", "hi")
-	newMessage("Steven", "hi")
-	deleteMessageByMessageText("hi")
-	outputMessages()
+	// newMessage("Steven", "hi")
+	// newMessage("Steven", "hi")
+	// deleteMessageByMessageText("hi")
+	// outputMessages()
+
+	a := []int{1, 2, 3, 4, 5}
+	result, err := joesImperativeChallenge(a, 3, 1)
+
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(result)
+	}
+}
+
+func joesImperativeChallenge(nums []int, partitionSize int, stepSize int) ([]int, error) {
+	partitioned, err := partition(nums, partitionSize, stepSize)
+
+	if err != nil {
+		return nil, err
+	} else {
+		reduced := reduce(partitioned)
+		return reduced, nil
+	}
+}
+
+func partition(slice []int, partitionSize int, skipSize int) ([][]int, error) {
+	if len(slice) < partitionSize {
+		return nil, errors.New("Slice length must be at least as large as partition size")
+	}
+
+	a := make([][]int, 0)
+	l := len(slice)
+	counter := 0
+
+	for {
+		if counter + partitionSize <= l {
+			a = append(a, slice[counter:partitionSize + counter])
+		} else {
+			break
+		}
+
+		counter++
+	}
+
+	return a, nil
+}
+
+func reduce(nums [][]int) []int {
+	var accum int
+	var x []int
+
+	for _, v := range nums {
+		for _, n := range v {
+			accum += n
+		}
+
+		x = append(x, accum)
+		accum = 0
+	}
+
+	return x
 }
 
 func slice() {
