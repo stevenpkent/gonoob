@@ -36,7 +36,7 @@ func main() {
 	// outputMessages()
 
 	a := []int{1, 2, 3, 4, 5}
-	result, err := joesImperativeChallenge(a, 3, 1)
+	result, err := joesImperativeChallenge(a, 3)
 
 	if err != nil {
 		fmt.Println(err)
@@ -45,8 +45,8 @@ func main() {
 	}
 }
 
-func joesImperativeChallenge(nums []int, partitionSize int, stepSize int) ([]int, error) {
-	partitioned, err := partition(nums, partitionSize, stepSize)
+func joesImperativeChallenge(nums []int, partitionSize int) ([]int, error) {
+	partitioned, err := partition(nums, partitionSize)
 
 	if err != nil {
 		return nil, err
@@ -56,7 +56,7 @@ func joesImperativeChallenge(nums []int, partitionSize int, stepSize int) ([]int
 	}
 }
 
-func partition(slice []int, partitionSize int, skipSize int) ([][]int, error) {
+func partition(slice []int, partitionSize int) ([][]int, error) {
 	if len(slice) < partitionSize {
 		return nil, errors.New("Slice length must be at least as large as partition size")
 	}
