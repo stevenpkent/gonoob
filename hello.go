@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"errors"
+	"math/rand"
+	"time"
 )
 
 var messages []Message
@@ -35,14 +37,34 @@ func main() {
 	// deleteMessageByMessageText("hi")
 	// outputMessages()
 
-	a := []int{1, 2, 3, 4, 5}
-	result, err := joesImperativeChallenge(a, 3)
+	// a := []int{1, 2, 3, 4, 5}
+	// result, err := joesImperativeChallenge(a, 3)
 
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(result)
-	}
+	// if err != nil {
+	// 	fmt.Println(err)
+	// } else {
+	// 	fmt.Println(result)
+	// }
+
+	theNumber := 3
+	fmt.Println(guessTheNumber(theNumber))
+}
+
+func guessTheNumber(theNumber int) string {
+	rand.Seed(time.Now().UnixNano())
+
+	for {
+			guess := rand.Intn(100) + 1
+
+			switch {
+			case guess == theNumber:
+				return fmt.Sprintf("%v is the correct number", guess)
+			case guess < theNumber:
+				fmt.Printf("%v is too low\n", guess)
+			default:
+				fmt.Printf("%v is too high\n", guess)
+			}
+		}
 }
 
 func joesImperativeChallenge(nums []int, partitionSize int) ([]int, error) {
